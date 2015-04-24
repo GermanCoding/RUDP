@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Simple Reliable UDP (rudp)
+ Copyright (c) 2009, Adrian Granados (agranados@ihmc.us)
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+     * Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright
+       notice, this list of conditions and the following disclaimer in the
+       documentation and/or other materials provided with the distribution.
+     * Neither the name of the copyright holder nor the names of its
+       contributors may be used to endorse or promote products derived
+       from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDERS AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<project name="rudp" default="build" basedir="..">
+
+    <property name="classes.dir" value="classes"/>
+    <property name="version" value="1.2.3"/>
+    <property name="fullname" value="${ant.project.name}-${version}"/>    
+    <property name="jarname" value="${fullname}.jar"/>
+    <property name="zipname" value="${fullname}.zip"/>
+
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <target name="make" depends="init">
+        <javac source="1.5" 
+               target="1.5" 
+               srcdir="src" 
+               destdir="${classes.dir}" 
+               debug="on" 
+               debuglevel="lines,source">
+            <classpath>
+                <pathelement location="${classes}"/>
+            </classpath>
+            <include name="net/**/*.java"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="make">
+        <jar basedir="${classes.dir}" destfile="${jarname}">
+            <include name="net/**/*.class"/>
+        </jar>
+    </target>
+
+    <target name="docs">
+        <javadoc destdir="docs/api"
+                 author="true"
+                 version="true"
+                 use="true"
+                 windowtitle="Simple Reliable UDP API">
+            <packageset dir="src" defaultexcludes="yes">
+                <include name="net/**"/>
+                <exclude name="net/rudp/impl/**"/>
+            </packageset>
+            <doctitle><![CDATA[<h1>Simple Reliable UDP</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2009 Adrian Granados. All Rights Reserved.</i>]]></bottom>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api"/>
+        </javadoc>
+    </target>
+
+    <target name="dist" depends="build">
+        <zip destfile="${zipname}" update="true" whenempty="fail">
+            <zipfileset dir="." prefix="${fullname}"
+                includes="src/**, build/**, docs/**, license.txt, README, NOTES, CHANGELOG"/>
+        </zip>
+    </target>
+
+    <target name="up" depends="dist">
+        <input
+            message="Please enter SF username:"
+            addproperty="username"
+        />
+        <input
+            message="Please enter SF password:"
+            addproperty="password">
+            <handler classname="org.apache.tools.ant.input.SecureInputHandler"/>
+        </input>
+        <scp file="${zipname}" todir="${username}:${password}@frs.sourceforge.net:uploads"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <delete>
+            <fileset dir="." includes="${ant.project.name}-*.jar"/>
+        </delete>
+    </target>
+
+    <target name="clean-dist">
+        <delete>
+            <fileset dir="." includes="${ant.project.name}-*.zip"/>
+        </delete>
+    </target>
+
+    <target name="clean-all" depends="clean,clean-dist"/>
+
+</project>

@@ -1,0 +1,7 @@
+
+RUDP is an object-oriented implementation of a reliable, in-order, transport protocol over UDP based on the Internet Draft by Bova, Krivoruchka, and Cisco Systems (1999) titled "Reliable UDP".
+
+To compile RUDP using Ant (http://ant.apache.org), type:
+
+    ant -f build/build.xml
+

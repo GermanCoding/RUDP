@@ -1,0 +1,5 @@
+Known issues:
+
+- net.rudp.ReliableServerSocket: new sockets may receive data bytes while 
+  in the backlog queue.
+

@@ -1,0 +1,59 @@
+1.2.3
+- Fixed bug that may cause an infinite loop when closing an instance 
+  of ReliableServerSocket - Thanks to Are Vinay Kumar.
+
+1.2.2
+- Fixed deadlock that may occur when a thread closes a socket that
+  another thread is writing on.
+- Fixed a problem where ServerSocket would create another socket just after
+  closing the previous one.
+- Minor performance improvement.
+
+1.2.1
+- Fixed a thread leak when connect() times out and the socket is closed.
+
+1.2.0
+- Fixed bug that may cause both endpoints to lock up during SYN exchange.
+- Fixed bug that would reset a connection when keepAlive is disabled.
+- Fixed bug where NUL segment timer was not being reset correctly.
+- Fixed bug that may cause unacknowledged packets to not be retransmitted.
+- Improved performance by not transmitting NUL segments when there are still
+  unacknowledged packets in the queue.
+- Added a preliminary version of a listener interface for packet events.
+- Made 'send' and 'receive' queue sizes configurable.
+- Improved logging.
+
+1.1.1
+- Fixed memory leak.
+- Fixed bug that would truncate packets when setting a MaxSegmentSize 
+  greater than 256.
+- Fixed fragmentation to honor maximum segment size.
+- Fixed bug where if the ACK to a SYN message arrives before the connect()
+  method blocks, the connect() call never returns.
+- Fixed synchronization in class Timer.
+- Fixed initilization of Null segment and Keep-Alive timers.
+- Fixed closing after connection breaks.
+
+1.1.0
+- Extended the API so that non-default RUDP parameters can be specified
+  when creating the socket.
+- Updated documentation.
+ 
+1.0.2
+- Fixed "already bound" problem when creating a connected socket.
+- Fixed bug where the server socket was being closed accidentally when
+  closing a client socket returned by the accept() method.
+- Fixed bug where received packets were being truncated.
+- Fixed NullPointerException when creating connected socket from accept().
+- Fixed implementation of the method ReliableSocketOutputStream.write(byte[],int,int)
+  to accept byte arrays that are larger than the socket's output buffer.
+
+1.0.1
+- Fixed "build" target in the Ant script.
+- Renamed input and output streams classes to 
+  ReliableSocketInputStream and ReliableSocketOutputStream.
+- Added javadocs.
+- Added the KNOWN_ISSUES and RELEASE_NOTES files.
+
+1.0
+- First beta release.
