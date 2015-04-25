@@ -18,7 +18,10 @@
         description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
     <javac srcdir="${src}" destdir="${build}"/>
-	<copydir src="${basedir}" dest="${build}"/>
+	<copy file="README" todir="${build}"/>
+  	<copy file="NOTES" todir="${build}"/>
+  	<copy file="license.txt" todir="${build}"/>
+  	<copy file="CHANGELOG" todir="${build}"/>
   </target>
 
   <target name="dist" depends="compile"
