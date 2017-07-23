@@ -32,7 +32,7 @@
 <project name="rudp" default="build" basedir="..">
 
     <property name="classes.dir" value="classes"/>
-    <property name="version" value="1.2.3"/>
+    <property name="version" value="SNAPSHOT"/>
     <property name="fullname" value="${ant.project.name}-${version}"/>    
     <property name="jarname" value="${fullname}.jar"/>
     <property name="zipname" value="${fullname}.zip"/>
