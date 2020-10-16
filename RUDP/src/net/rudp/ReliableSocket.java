@@ -48,7 +48,6 @@ import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
 import net.rudp.impl.ACKSegment;
 import net.rudp.impl.DATSegment;
 import net.rudp.impl.EAKSegment;
@@ -1039,6 +1038,9 @@ public class ReliableSocket extends Socket
         synchronized (_unackedSentQueue) {
             while ((_unackedSentQueue.size() >= _sendQueueSize) ||
                    (_counters.getOutstandingSegsCounter() > _profile.maxOutstandingSegs())) {
+            	if (_closed) {
+                    throw new SocketException("Socket is closed");
+                }
                 try {
                     _unackedSentQueue.wait();
                 }
@@ -1220,7 +1222,11 @@ public class ReliableSocket extends Socket
                     synchronized (_recvQueueLock) {
                         _recvQueueLock.notify();
                     }
-
+                    
+                    synchronized (_unackedSentQueue) {
+                    	_unackedSentQueue.notifyAll();
+                    }
+                    
                     closeImpl();
                     break;
             }
