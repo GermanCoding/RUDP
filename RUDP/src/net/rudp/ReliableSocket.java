@@ -1039,9 +1039,9 @@ public class ReliableSocket extends Socket
         synchronized (_unackedSentQueue) {
             while ((_unackedSentQueue.size() >= _sendQueueSize) ||
                    (_counters.getOutstandingSegsCounter() > _profile.maxOutstandingSegs())) {
-				if (!_connected) {
-				    throw new SocketException("Socket is closed");
-				}
+                if (!_connected) {
+                    throw new SocketException("Socket is closed");
+                }
                 try {
                     _unackedSentQueue.wait();
                 }
