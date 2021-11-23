@@ -1,7 +1,7 @@
 # RUDP
 A (slightly) modified version of the RUDP libary written by Adrian Granados (not me, copyright for this goes to him. See RUDP/license.txt for details).
 
-R-UDP means "Reliable UDP". A description of the protocol can be found here http://www.ietf.org/proceedings/44/I-D/draft-ietf-sigtran-reliable-udp-00.txt or https://en.wikipedia.org/wiki/Reliable_User_Datagram_Protocol
+R-UDP means "Reliable UDP". A description of the protocol can be found here https://datatracker.ietf.org/doc/html/draft-ietf-sigtran-reliable-udp-00
 
 Download
 --
