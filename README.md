@@ -5,7 +5,7 @@ R-UDP means "Reliable UDP". A description of the protocol can be found here http
 
 Download
 --
-You can download a up to date pre-compiled version of this API here (Compiled with Java 8):
+You can download a up to date pre-compiled version of this API here (Compiled with Java 11):
 https://build.germancoding.com/job/RUDP/lastSuccessfulBuild/artifact/RUDP/rudp-SNAPSHOT.jar
 
 Of course you can also download/clone the source and compile it for yourself. There are no dependencies, the project was tested working on Java 6/7/8.
